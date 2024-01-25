@@ -1,5 +1,5 @@
 const { Activity } = require("../db");
-
+const compareDateTime = require("../utils/compareDateTime");
 module.exports = async (req, res) => {
   try {
     const { id } = req.params;
@@ -10,6 +10,14 @@ module.exports = async (req, res) => {
 
     if (!activity) {
       return res.status(404).json({ error: "Activity not found" });
+    }
+
+    // Verify that startDateTime is before or equal to endDateTime
+    const date1 = startDateTime || activity.startDateTime;
+    const date2 = endDateTime || activity.endDateTime;
+    if (compareDateTime(date1, date2) === 1) {
+      const error = "startDateTime is not before or equal to endDateTime";
+      return res.status(400).json({ error });
     }
 
     // Updates the activity with the new data

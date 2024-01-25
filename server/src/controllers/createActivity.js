@@ -1,4 +1,5 @@
 const { Activity } = require("../db");
+const compareDateTime = require("../utils/compareDateTime");
 
 module.exports = async (req, res) => {
   try {
@@ -6,6 +7,12 @@ module.exports = async (req, res) => {
 
     if (!name || !startDateTime || !endDateTime)
       return res.status(400).json({ error: "Incomplete data" });
+
+    // Verify that startDateTime is before or equal to endDateTime
+    if (compareDateTime(startDateTime, endDateTime) === 1) {
+      const error = "startDateTime is not before or equal to endDateTime";
+      return res.status(400).json({ error });
+    }
 
     const newActivity = await Activity.create({
       name,
