@@ -1,36 +1,22 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import "./App.css";
-import Schedule from "./components/Schedule";
-import Summary from "./components/Summary";
-import { useDispatch } from "react-redux";
-import { createList } from "./redux/activityListReducer";
+import Activities from "./components/Activities";
+import ActivityDetails from "./components/ActivityDetails";
+// import { useDispatch } from "react-redux";
+// import { createList } from "./redux/features/Activity/activityListReducer";
+// import activityList from "./utils/Activities";
+import ActivityState from "./context/Activity/ActivityState";
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const activityList = [
-      {
-        activityId: "1",
-        name: "Libellus Meeting",
-        description: "Meeting",
-        startDateTime: "2024-01-24T19:00:00.000Z",
-        endDateTime: "2024-01-25T18:00:00.000Z",
-      },
-      {
-        activityId: "2",
-        name: "Libellus Meeting",
-        description: "Meeting",
-        startDateTime: "2024-01-24T19:00:00.000Z",
-        endDateTime: "2024-01-25T18:00:00.000Z",
-      },
-    ];
-    dispatch(createList(activityList));
-  }, []);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(createList(activityList));
+  // }, []);
   return (
-    <>
-      <Summary />
-      <Schedule />
-    </>
+    <ActivityState>
+      <Activities />
+      <ActivityDetails />
+    </ActivityState>
   );
 }
 

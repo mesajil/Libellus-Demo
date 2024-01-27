@@ -1,12 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-interface Activity {
-  activityId: string;
-  name: string;
-  description: string;
-  startDateTime: string;
-  endDateTime: string;
-}
+import { Activity } from "../../../utils/Activity";
 
 interface ActivityListState {
   activityList: Activity[];
@@ -19,7 +12,7 @@ const initialState: ActivityListState = {
 /**
  * 1. Tanto initialState como state,
  * representa el estado del activityListSlice no del rootState
- * 2. activityList state es un objeto.
+ * 2. Tanto initialState como state son objetos.
  */
 const activityListSlice = createSlice({
   name: "activityList",
