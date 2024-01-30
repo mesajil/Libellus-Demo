@@ -1,7 +1,18 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const server = express();
+const localOriginUrl = `http://localhost:${process.env.CLIENT_PORT}`;
+
+server.use(
+  cors({
+    origin: [localOriginUrl],
+    credentials: true,
+    methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
+  })
+);
 
 server.name = "libellus-demo-api";
 server.use(express.urlencoded({ extended: true, limit: "50mb" }));
